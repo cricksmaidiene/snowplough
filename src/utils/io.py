@@ -8,6 +8,9 @@ import numpy as np
 import os
 import re
 import shutil
+from random import shuffle
+from tqdm.autonotebook import tqdm
+from concurrent.futures import ThreadPoolExecutor
 
 import fsspec
 
@@ -16,6 +19,37 @@ import pyarrow.parquet as pq
 from pyarrow import fs as pyarrow_fs
 
 from deltalake import DeltaTable, write_deltalake
+
+
+def partition_dataframe(df: pd.DataFrame, N_Partitions: int) -> list[pd.DataFrame]:
+    """
+    Partition a pandas DataFrame into n partitions.
+
+    Parameters:
+    df (pandas.DataFrame): The DataFrame to partition.
+    n (int): Number of partitions.
+
+    Returns:
+    List[pandas.DataFrame]: A list containing the partitions.
+    """
+    # Ensure n is valid
+    if N_Partitions <= 0:
+        raise ValueError("Number of partitions must be a positive integer")
+
+    # Calculate the size of each partition
+    partition_size: int = len(df) // N_Partitions
+
+    # Create partitions
+    partitions: list[pd.DataFrame] = [
+        df[i : i + partition_size] for i in range(0, len(df), partition_size)
+    ]
+
+    # Adjust the last partition to include any remaining rows
+    if len(partitions) > N_Partitions:
+        partitions[-2] = pd.concat([partitions[-2], partitions[-1]])
+        partitions.pop()
+
+    return partitions
 
 
 class FileSystemHandler:
@@ -91,6 +125,42 @@ class FileSystemHandler:
         dt = DeltaTable(table_path)
         return dt.to_pandas() if as_pandas else dt
 
+    def read_delta_partitions(
+        self,
+        delta_table: DeltaTable,
+        N_partitions: int | None = None,
+        shuffle_partitions: bool = False,
+        concurrent: bool = True,
+    ) -> pd.DataFrame:
+        """A function to read all partitions of a delta lake table - concurrently or in sequence."""
+        delta_partitions = delta_table.file_uris()
+        if N_partitions and N_partitions > len(delta_partitions):
+            N_partitions = None
+
+        if shuffle_partitions:
+            shuffle(delta_partitions)
+
+        if N_partitions:
+            delta_partitions = delta_partitions[0:N_partitions]
+
+        l_dfs: list[pd.DataFrame] = []
+        pbar = tqdm(total=len(delta_partitions), leave=False, position=0)
+
+        def read_partition_chunk(file_location: str):
+            """A simple function to read a single partitioned parquet file."""
+            df_partition: pd.DataFrame = pd.read_parquet(file_location)
+            l_dfs.append(df_partition)
+            pbar.update(1)
+
+        if concurrent:
+            with ThreadPoolExecutor(max_workers=5) as executor:
+                executor.map(read_partition_chunk, delta_partitions)
+        else:
+            for p in delta_partitions:
+                read_partition_chunk(file_location=p)
+
+        return pd.concat(l_dfs).reset_index(drop=True)
+
     def write_delta(
         self,
         dataframe: pd.DataFrame,
@@ -106,7 +176,7 @@ class FileSystemHandler:
         table_path: str = self.CATALOG + f"/{catalog_name}/{table}"
 
         table_to_write: pa.Table = pa.Table.from_pandas(dataframe, schema=schema)
-        
+
         write_deltalake(
             table_path,
             table_to_write,
