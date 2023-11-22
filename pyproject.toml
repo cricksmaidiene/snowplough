@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "snowplough"
+version = "0.1.0"
+description = "🏂 A machine learning model that detects bias in news and media articles. Final project for UC Berkeley MIDS 266 (Natural Language Processing)"
+authors = ["Eshwaran Venkat <eshwaranv98@berkeley.edu>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+pyarrow = "^14.0.1"
+pandas = "^2.1.3"
+tqdm = "^4.66.1"
+fsspec = "^2023.10.0"
+deltalake = "^0.13.0"
+gensim = "^4.3.2"
+nltk = "^3.8.1"
+tensorflow = "^2.15.0"
+spacy = "^3.7.2"
+textblob = "^0.17.1"
+vaderSentiment = "^3.3.2"
+plotly = "^5.18.0"
+numpy = "^1.26.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
