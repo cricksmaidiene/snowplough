@@ -86,7 +86,7 @@ class FileSystemHandler:
         """Read a delta table object or equivalent pandas dataframe."""
         if not table.endswith(".delta"):
             table = table + ".delta"
-        table_path: str = self.CATALOG +  f"/{catalog_name}/{table}"
+        table_path: str = self.CATALOG + f"/{catalog_name}/{table}"
 
         dt = DeltaTable(table_path)
         return dt.to_pandas() if as_pandas else dt
@@ -96,22 +96,31 @@ class FileSystemHandler:
         dataframe: pd.DataFrame,
         table: str,
         catalog_name: str,
+        schema: pa.Schema,
         mode: Literal["append", "overwrite"] = "append",
         partition_by: list[str] | None = None,
     ) -> bool:
         """Write a pandas dataframe as a delta table."""
         if not table.endswith(".delta"):
             table = table + ".delta"
-        table_path: str = self.CATALOG +  f"/{catalog_name}/{table}"
+        table_path: str = self.CATALOG + f"/{catalog_name}/{table}"
 
-        write_deltalake(table_path, dataframe, mode=mode, partition_by=partition_by)
+        table_to_write: pa.Table = pa.Table.from_pandas(dataframe, schema=schema)
+        
+        write_deltalake(
+            table_path,
+            table_to_write,
+            schema=schema,
+            mode=mode,
+            partition_by=partition_by,
+        )
         return True
-    
+
     def clear_delta(self, table: str, catalog_name: str, purge: bool = True) -> dict:
         """Removes a delta table and its schema from the catalog location."""
         if not table.endswith(".delta"):
             table = table + ".delta"
-        table_path: str = self.CATALOG +  f"/{catalog_name}/{table}"
+        table_path: str = self.CATALOG + f"/{catalog_name}/{table}"
         table_del: dict = DeltaTable(table_path).delete()
 
         if purge:
@@ -119,7 +128,6 @@ class FileSystemHandler:
                 self.fs.rm(sub_part, recursive=True)
 
         return table_del
-    
 
     def listdir(
         self,
