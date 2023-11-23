@@ -1,5 +1,7 @@
 # Snowplough 🏂
 
+A machine learning model that detects bias in news and media articles. Final project for UC Berkeley MIDS 266 (Natural Language Processing)
+
 Environments:
 
 ![](https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&logo=Jupyter&logoColor=white)
@@ -21,28 +23,30 @@ Data:
 ![](https://img.shields.io/badge/Amazon%20S3-569A31.svg?style=for-the-badge&logo=Amazon-S3&logoColor=white)
 ![](https://img.shields.io/badge/Files-4285F4.svg?style=for-the-badge&logo=Files&logoColor=white)
 
-A machine learning model that detects bias in news and media articles. Final project for UC Berkeley MIDS 266 (Natural Language Processing)
-
 ## Installation
 
 Setup anaconda as a virtual environment
+
 ```bash
 conda create --name snowplough python=3.10 -y
 conda activate snowplough
 ```
 
 Dowload and install snowplough dependencies
+
 ```bash
 git clone https://github.com/cricksmaidiene/snowplough
 cd snowplough
 ```
 
 Install with poetry:
+
 ```bash
 poetry install
 ```
 
 Or with pip:
+
 ```bash
 pip install .
 ```
