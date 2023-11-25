@@ -41,36 +41,4 @@ AllTheNews is a popular dataset of news articles that has two versions. Version 
 | 01 | [All The News v2 Ingest](notebooks/01_data_ingestion/all_the_news_v2_ingest.html) | Data Ingestion | Ingests the All The News v2 dataset into a Delta Lake table. |
 | 02 | [All The News Summary EDA](notebooks/02_exploratory_data_analysis/all_the_news_summary_eda.html) | Exploratory Data Analysis | Performs exploratory data analysis on the All The News v2 dataset for Summary Statistics. |
 | 03 | [All The News Text Preprocessor - Word Counts & Sentiments](notebooks/02_exploratory_data_analysis/preprocessor_wc_and_sentiments.html) | Exploratory Data Analysis | Transformation layer that adds word count fields and sentiment score fields per article |
-
-## Research Design 🔍
-
-### Measuring Bias 🎙
-
-Measuring bias is a subjective task and can be quite challenging. However, there are broadly several approaches:
-
-* **Analyzing Word Choice and Phrasing**: Certain words or phrases may be loaded with connotations that reveal bias.
-* **Source and Citation Analysis**: Evaluating the diversity and credibility of the sources and citations used in the article.
-* **Comparison with Other Reports**: Comparing the article with other reports on the same topic to identify discrepancies or slants.
-
-Natural Language Processing and Machine Learning models can detect bias by:
-
-* **Keyword and Phrase Analysis**: Identifying and analyzing the usage of biased or subjective words or phrases.
-* **Sentiment Analysis**: Evaluating whether the text leans towards a positive or negative sentiment unnecessarily.
-* **Statistical Analysis**: Using statistical methods to identify patterns or anomalies that might indicate bias.
-* **Machine Learning Models**: Training models to recognize and categorize bias based on historical data and linguistic features.
-  
-### Bias Indicators 🚨
-
-#### Surface Indicators
-
-* **Strong Adjectives and Adverbs**: Usage of strong or emotional words to describe events, people, or entities.
-* **Imbalanced Reporting**: Overemphasis on one viewpoint, while neglecting or undermining others.
-* **Lack of Source Diversity**: Reliance on a limited or biased set of sources or experts.
-* **Direct Opinions**: Presence of the author’s personal opinions or beliefs
-
-#### Subtle Indicators
-
-* **Framing**: The way information is presented or framed can subtly introduce bias.
-* **Choice of Quotes**: Selectively using quotes that support a particular viewpoint.
-* **Omission**: Leaving out certain facts, perspectives, or context that might lead to a more balanced understanding.
-* **Placement of Information**: Putting biased or opinionated content prominently, while burying neutral or opposing views.
+| 04 | [All The News Sentiment EDA](notebooks/02_exploratory_data_analysis/all_the_news_sentiment_eda.html) | Exploratory Data Analysis | Looks at descriptive statistics on sentiment scores across articles, publications and authors to find signals for bias |
