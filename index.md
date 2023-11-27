@@ -38,7 +38,7 @@ AllTheNews is a popular dataset of news articles that has two versions. Version 
 
 | NB Order Number | Notebook | Section | Description |
 | --- | --- | --- | --- |
-| 01 | [All The News v2 Ingest](notebooks/01_data_ingestion/all_the_news_v2_ingest.html) | Data Ingestion | Ingests the All The News v2 dataset into a Delta Lake table. |
-| 02 | [All The News Summary EDA](notebooks/02_exploratory_data_analysis/all_the_news_summary_eda.html) | Exploratory Data Analysis | Performs exploratory data analysis on the All The News v2 dataset for Summary Statistics. |
-| 03 | [All The News Text Preprocessor - Word Counts & Sentiments](notebooks/02_exploratory_data_analysis/preprocessor_wc_and_sentiments.html) | Exploratory Data Analysis | Transformation layer that adds word count fields and sentiment score fields per article |
-| 04 | [All The News Sentiment EDA](notebooks/02_exploratory_data_analysis/all_the_news_sentiment_eda.html) | Exploratory Data Analysis | Looks at descriptive statistics on sentiment scores across articles, publications and authors to find signals for bias |
+| 01 | [All The News v2 Ingest](notebooks/01_ingestion/all_the_news_v2_ingest.html) | Data Ingestion | Ingests the All The News v2 dataset into a Delta Lake table. |
+| 02 | [Summary EDA](notebooks/03_analysis/summary_eda.html) | Exploratory Data Analysis | Performs exploratory data analysis on the All The News v2 dataset for Summary Statistics. |
+| 03 | [Text Preprocessor - Word Counts & Sentiments](notebooks/02_engineering/word_counts_and_sentiments.html) | Data Engineering | Transformation layer that adds word count fields and sentiment score fields per article |
+| 04 | [Sentiment EDA](notebooks/03_analysis/sentiment_eda.html) | Exploratory Data Analysis | Looks at descriptive statistics on sentiment scores across articles, publications and authors to find signals for bias |
