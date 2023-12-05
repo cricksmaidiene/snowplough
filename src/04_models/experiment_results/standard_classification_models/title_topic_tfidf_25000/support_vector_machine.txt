@@ -1,0 +1,23 @@
+                       precision    recall  f1-score   support
+
+        Art & Culture       0.81      0.48      0.61      2253
+            Education       0.87      0.53      0.65       207
+Entertainment & Media       0.66      0.89      0.76      6800
+          Environment       0.66      0.73      0.69      1323
+              Finance       0.85      0.86      0.85      8876
+               Health       0.79      0.66      0.72      2037
+  Industrial Business       0.69      0.20      0.31       488
+ Journalism & Opinion       0.93      0.88      0.90      1938
+       Legal & Safety       0.81      0.60      0.69       762
+               Living       0.70      0.50      0.58      1804
+             Military       0.40      0.05      0.08        44
+             Politics       0.79      0.83      0.81      5356
+              Science       0.60      0.37      0.46       544
+               Sports       0.93      0.90      0.92      3673
+           Technology       0.76      0.79      0.77      4119
+       Transportation       0.52      0.30      0.38       259
+              Weather       0.61      0.10      0.16       147
+
+             accuracy                           0.78     40630
+            macro avg       0.73      0.57      0.61     40630
+         weighted avg       0.78      0.78      0.77     40630
