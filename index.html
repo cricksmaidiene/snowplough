@@ -718,9 +718,9 @@ hue-6-2: #e6c07b
     </head>
     <body class="vscode-body vscode-light">
         <h1 id="snowplough-">Snowplough 🏂</h1>
-<p>🖋 <strong>Authors</strong>: <a href="mailto:eshwaran@ischool@berkeley.edu">Eshwaran Venkat</a>, under the guidance of <a href="">Jennifer Zhu</a></p>
-<p>A machine learning model that detects bias in news and media articles.</p>
-<p>Final project for UC Berkeley <a href="https://ischoolonline.berkeley.edu/data-science/curriculum/natural-language-processing/">MIDS 266 (Natural Language Processing)</a>. See <a href="https://github.com/datasci-w266">Course Repository</a></p>
+<p>🖋 <strong>Authors</strong>: <a href="mailto:eshwaran@ischool@berkeley.edu">Eshwaran Venkat</a>, under the guidance of <a href="mailto:zhuxuan@ischool.berkeley.edu">Jennifer Zhu</a></p>
+<p>A suite of descriptive statistics &amp; deep-learning classifiers that analyze media bias in news. These tools evaluate topic and sentiment trends, and consider author and publication factors.</p>
+<p>Final project for UC Berkeley <a href="https://ischoolonline.berkeley.edu/data-science/curriculum/natural-language-processing/">MIDS 266 (Natural Language Processing with Deep Learning)</a>. See <a href="https://github.com/datasci-w266">Course Repository</a></p>
 <p><img src="https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&amp;logo=Jupyter&amp;logoColor=white" alt="">
 <img src="https://img.shields.io/badge/Databricks-FF3621.svg?style=for-the-badge&amp;logo=Databricks&amp;logoColor=white" alt="">
 <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&amp;logo=Python&amp;logoColor=white" alt="">
@@ -735,6 +735,7 @@ hue-6-2: #e6c07b
 <img src="https://img.shields.io/badge/Files-4285F4.svg?style=for-the-badge&amp;logo=Files&amp;logoColor=white" alt=""></p>
 <h2 id="about-">About 📰</h2>
 <p><strong>Bias</strong> in an article refers to the presence of a certain slant or inclination in the way information is presented. It means that the content is delivered with a partial perspective, favoring one side or viewpoint over others. This can manifest in various forms, such as political bias, cultural bias, or commercial bias, among others. It can be introduced in an article in many ways, such as the choice of words, the tone of the article, the selection of facts, and the presentation of data. It can be introduced intentionally or unintentionally.</p>
+<p>Assigning bias to an article can be subjective, but can dependend broadly on the topic of the article, the publication, the author, and the sentiment of the article. This project aims to build a topic &amp; author classifier, which are in turn used to create descriptive statistics in order to study media bias.</p>
 <h2 id="data-">Data 📇</h2>
 <h3 id="allthenews">AllTheNews</h3>
 <p>AllTheNews is a popular dataset of news articles that has two versions. Version 1 &amp; 2.</p>
@@ -742,7 +743,7 @@ hue-6-2: #e6c07b
 <li><a href="https://components.one/datasets/all-the-news-2-news-articles-dataset">Version 2.0</a> has 2.7 million articles from a number of sources.</li>
 <li>It is a published dataset that is readily downloadable.</li>
 <li>The date range of articles is from January 1, 2016 to April 2, 2020.</li>
-<li>This is an unlabelled dataset, and doesn’t have a bias rating per article</li>
+<li>The only metadata available is the article <code>title</code>, <code>publication</code>, <code>section</code>, <code>author</code>, <code>date</code>, and <code>content</code>. We use a subset of these as labels for our classifiers.</li>
 </ul>
 <h2 id="notebooks-">Notebooks 📙</h2>
 <table>
@@ -757,27 +758,81 @@ hue-6-2: #e6c07b
 <tbody>
 <tr>
 <td>01</td>
-<td><a href="notebooks/01_ingestion/all_the_news_v2_ingest.html">All The News v2 Ingest</a></td>
-<td>Data Ingestion</td>
+<td><a href="notebooks/01_ingestion/all_the_news_v2_ingest.html">Ingest Dataset</a></td>
+<td>Ingestion</td>
 <td>Ingests the All The News v2 dataset into a Delta Lake table.</td>
 </tr>
 <tr>
 <td>02</td>
-<td><a href="notebooks/03_analysis/summary_eda.html">Summary EDA</a></td>
-<td>Exploratory Data Analysis</td>
+<td><a href="notebooks/03_analysis/summary_eda.html">Exploratory Data Analysis</a></td>
+<td>Analysis</td>
 <td>Performs exploratory data analysis on the All The News v2 dataset for Summary Statistics.</td>
 </tr>
 <tr>
 <td>03</td>
-<td><a href="notebooks/02_engineering/word_counts_and_sentiments.html">Text Preprocessor - Word Counts &amp; Sentiments</a></td>
-<td>Data Engineering</td>
+<td><a href="notebooks/02_engineering/word_counts_and_sentiments.html">Word Counts &amp; Sentiments Processor</a></td>
+<td>Engineering</td>
 <td>Transformation layer that adds word count fields and sentiment score fields per article</td>
 </tr>
 <tr>
 <td>04</td>
-<td><a href="notebooks/03_analysis/sentiment_eda.html">Sentiment EDA</a></td>
-<td>Exploratory Data Analysis</td>
+<td><a href="notebooks/03_analysis/sentiment_eda.html">Sentiment Analysis</a></td>
+<td>Analysis</td>
 <td>Looks at descriptive statistics on sentiment scores across articles, publications and authors to find signals for bias</td>
+</tr>
+<tr>
+<td>05</td>
+<td><a href="notebooks/03_analysis/sections_eda.html">News Section Analysis</a></td>
+<td>Analysis</td>
+<td>Explores newspaper sections for topic-level coalescing and assignment</td>
+</tr>
+<tr>
+<td>06</td>
+<td><a href="notebooks/03_analysis/author_eda.html">Author Analysis</a></td>
+<td>Analysis</td>
+<td>Explores author distributution and slants for simple author classification</td>
+</tr>
+<tr>
+<td>07</td>
+<td><a href="notebooks/02_engineering/topic_processor.html">Topic Processor</a></td>
+<td>Engineering</td>
+<td>Transformation layer that adds topic fields per article using a topic lexicon, and performs additional processing</td>
+</tr>
+<tr>
+<td>08</td>
+<td><a href="notebooks/03_analysis/lda_analysis.html">LDA Topic Modeling</a></td>
+<td>Modeling</td>
+<td>Performs Latent Dirichlet Allocation analysis on the All The News v2 dataset for Topic Modeling</td>
+</tr>
+<tr>
+<td>09</td>
+<td><a href="notebooks/02_engineering/bert_topic_processor.html">BERTTopic</a></td>
+<td>Engineering</td>
+<td>Transformation layer that adds topic fields per article using a BERT-based topic classifier, and performs additional processing</td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="notebooks/04_models/standard_classification_models.html">Standard Classification Models</a></td>
+<td>Modeling</td>
+<td>Comprehensive set of non-neural network models for Topic &amp;Author classification - Random Forests, Logistic Regression, etc.</td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="src/04_models/experiment_results">Standard Experiment Results</a></td>
+<td>Experiments</td>
+<td>Classifier Metrics across different trials</td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="notebooks/04_models/bert_classifier.html">BERT Classifier</a></td>
+<td>Modeling</td>
+<td>BERT-based neural network model for Topic &amp; Author classification</td>
+</tr>
+<tr>
+<td>12</td>
+<td><a href="notebooks/03_analysis/bias_index_and_statistics.html">Bias Index</a></td>
+<td>Analysis</td>
+<td>Calculates bias index and performs preliminary bias analysis using trained classifiers</td>
 </tr>
 </tbody>
 </table>
