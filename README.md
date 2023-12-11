@@ -51,6 +51,10 @@ Or with pip:
 pip install .
 ```
 
+## Tools & Infrastructure
+
+All descriptive analysis, data engineering, processing and baseline modeling was run within Python environment-based Databricks notebooks on CPU backed single-node clusters. Spark was not required, and the main choice for Databricks here was to allow variable sized clusters based on requirements at different project stages. No Databricks-specific commands or dependencies exist, and the **notebooks are agnostic and can be run directly on Jupyter or Google Colab as well**, provided that the Python requirements are met, and the requisite hardware is available. A custom Delta Lake (an open source file format on top of apache parquet) handler to store data locally in the file system or on AWS S3 was used, in order to manage memory better for the size of All The News v2. The neural network based classifiers were trained on P-class and G-class instance-type GPUs made available through AWS & Databricks. Mlflow was used to track and save experimental results for trial and error of hyperparameter tuning
+
 ## Data Layer
 
 This project utilizes [Delta Lake](https://delta.io/) for data storage. The storage location is flexible between [AWS S3](https://aws.amazon.com/s3/) or Local Filesystem. The data layer is abstracted away from the user and can be specified when calling `FileSystemHandler` from `src.utils.io` in notebooks.

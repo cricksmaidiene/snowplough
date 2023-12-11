@@ -719,8 +719,7 @@ hue-6-2: #e6c07b
     <body class="vscode-body vscode-light">
         <h1 id="snowplough-">Snowplough 🏂</h1>
 <p>🖋 <strong>Authors</strong>: <a href="mailto:eshwaran@ischool@berkeley.edu">Eshwaran Venkat</a>, under the guidance of <a href="mailto:zhuxuan@ischool.berkeley.edu">Jennifer Zhu</a></p>
-<p>A suite of descriptive statistics &amp; deep-learning classifiers that analyze media bias in news. These tools evaluate topic and sentiment trends, and consider author and publication factors.</p>
-<p>Final project for UC Berkeley <a href="https://ischoolonline.berkeley.edu/data-science/curriculum/natural-language-processing/">MIDS 266 (Natural Language Processing with Deep Learning)</a>. See <a href="https://github.com/datasci-w266">Course Repository</a></p>
+<p>Supervised Learning meets Media Analysis: Simple Topic Classification to Explore Bias in News Coverage. Final project for UC Berkeley <a href="https://ischoolonline.berkeley.edu/data-science/curriculum/natural-language-processing/">MIDS 266 (Natural Language Processing with Deep Learning)</a>. See <a href="https://github.com/datasci-w266">Course Repository</a></p>
 <p><img src="https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&amp;logo=Jupyter&amp;logoColor=white" alt="">
 <img src="https://img.shields.io/badge/Databricks-FF3621.svg?style=for-the-badge&amp;logo=Databricks&amp;logoColor=white" alt="">
 <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&amp;logo=Python&amp;logoColor=white" alt="">
@@ -734,8 +733,15 @@ hue-6-2: #e6c07b
 <img src="https://img.shields.io/badge/Amazon%20S3-569A31.svg?style=for-the-badge&amp;logo=Amazon-S3&amp;logoColor=white" alt="">
 <img src="https://img.shields.io/badge/Files-4285F4.svg?style=for-the-badge&amp;logo=Files&amp;logoColor=white" alt=""></p>
 <h2 id="about-">About 📰</h2>
-<p><strong>Bias</strong> in an article refers to the presence of a certain slant or inclination in the way information is presented. It means that the content is delivered with a partial perspective, favoring one side or viewpoint over others. This can manifest in various forms, such as political bias, cultural bias, or commercial bias, among others. It can be introduced in an article in many ways, such as the choice of words, the tone of the article, the selection of facts, and the presentation of data. It can be introduced intentionally or unintentionally.</p>
-<p>Assigning bias to an article can be subjective, but can dependend broadly on the topic of the article, the publication, the author, and the sentiment of the article. This project aims to build a topic &amp; author classifier, which are in turn used to create descriptive statistics in order to study media bias.</p>
+<p>Our study introduces an approach to analyze news content, centering on the development of a topic classifier using the extensive <code>All The News v2</code> dataset. Our methodology progresses from baseline classifiers to more advanced models, culminating in a fine-tuned BERT classifier, adept at categorizing news articles into distinct topics such as 'Sports,' 'Finance', etc., based on textual features and news metadata.</p>
+<p>This classifier is augmented with sentiment analysis and other indicators for a supplemental exploration into media bias, aiming to delineate its various manifestations. The core of our research lies in the robust topic classification, with media bias analysis providing additional insights.
+We’ve made the code, notebooks, models and newly generated (topic classified) dataset publicly available. The newly created dataset is listed as All The News v2.1 on Kaggle and a fine-tuned BERT classifier for the same is also made available online.</p>
+<ul>
+<li><strong>Project Report</strong>: <a href="https://github.com/cricksmaidiene/snowplough/blob/main/snowplough_project_report.pdf">Download PDF</a></li>
+<li><strong>GitHub</strong>: <a href="https://github.com/cricksmaidiene/snowplough">cricksmaidiene/snowplough</a></li>
+<li><strong>Kaggle</strong>: <a href="">Coming Soon</a></li>
+<li><strong>Hugging Face</strong>: <a href="">Coming Soon</a></li>
+</ul>
 <h2 id="data-">Data 📇</h2>
 <h3 id="allthenews">AllTheNews</h3>
 <p>AllTheNews is a popular dataset of news articles that has two versions. Version 1 &amp; 2.</p>
@@ -788,51 +794,45 @@ hue-6-2: #e6c07b
 </tr>
 <tr>
 <td>06</td>
-<td><a href="notebooks/03_analysis/author_eda.html">Author Analysis</a></td>
-<td>Analysis</td>
-<td>Explores author distributution and slants for simple author classification</td>
-</tr>
-<tr>
-<td>07</td>
 <td><a href="notebooks/02_engineering/topic_processor.html">Topic Processor</a></td>
 <td>Engineering</td>
 <td>Transformation layer that adds topic fields per article using a topic lexicon, and performs additional processing</td>
 </tr>
 <tr>
+<td>07</td>
+<td><a href="notebooks/03_analysis/topic_and_author_eda.html">Topic &amp; Author Analysis</a></td>
+<td>Analysis</td>
+<td>Explores the newly labeled and created topics, and how they interact with author distributution and slants</td>
+</tr>
+<tr>
 <td>08</td>
-<td><a href="notebooks/03_analysis/lda_analysis.html">LDA Topic Modeling</a></td>
-<td>Modeling</td>
-<td>Performs Latent Dirichlet Allocation analysis on the All The News v2 dataset for Topic Modeling</td>
+<td><a href="notebooks/04_models/standard_classification_models.html">Standard Classification Models</a></td>
+<td>Machine Learning</td>
+<td>Comprehensive set of non-neural network models for Topic &amp; Optional Author classification - Random Forests, Logistic Regression, &amp; Naive Bayes</td>
 </tr>
 <tr>
 <td>09</td>
-<td><a href="notebooks/02_engineering/bert_topic_processor.html">BERTTopic</a></td>
-<td>Engineering</td>
-<td>Transformation layer that adds topic fields per article using a BERT-based topic classifier, and performs additional processing</td>
+<td><a href="notebooks/04_models/nn_models.html">Neural Network Classifiers</a></td>
+<td>Machine Learning</td>
+<td>Bi-Directional LSTM and CNN networks are trained for classification of news topics from news titles</td>
 </tr>
 <tr>
 <td>10</td>
-<td><a href="notebooks/04_models/standard_classification_models.html">Standard Classification Models</a></td>
-<td>Modeling</td>
-<td>Comprehensive set of non-neural network models for Topic &amp;Author classification - Random Forests, Logistic Regression, etc.</td>
-</tr>
-<tr>
-<td>10</td>
-<td><a href="src/04_models/experiment_results">Standard Experiment Results</a></td>
-<td>Experiments</td>
-<td>Classifier Metrics across different trials</td>
+<td><a href="notebooks/04_models/bert_simple_model.html">BERT Simple Classifier</a></td>
+<td>Machine Learning</td>
+<td>A model that minimally fine-tunes a pre-trained BERT Model to classify news topics</td>
 </tr>
 <tr>
 <td>11</td>
-<td><a href="notebooks/04_models/bert_classifier.html">BERT Classifier</a></td>
-<td>Modeling</td>
-<td>BERT-based neural network model for Topic &amp; Author classification</td>
+<td><a href="notebooks/04_models/bert_complex_model.html">BERT Complex Classifier</a></td>
+<td>Machine Learning</td>
+<td>A model that adds LSTM and CNN layers on top of a pre-trained BERT model to train the classifier</td>
 </tr>
 <tr>
 <td>12</td>
-<td><a href="notebooks/03_analysis/bias_index_and_statistics.html">Bias Index</a></td>
+<td><a href="notebooks/03_analysis/bias_analysis.html">Bias Analysis</a></td>
 <td>Analysis</td>
-<td>Calculates bias index and performs preliminary bias analysis using trained classifiers</td>
+<td>Systematically performs a simple bias analysis on newly labeled topics and sentiments on the news data</td>
 </tr>
 </tbody>
 </table>
