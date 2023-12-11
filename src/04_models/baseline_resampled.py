@@ -1,13 +1,13 @@
 # Databricks notebook source
 # MAGIC %md
 # MAGIC
-# MAGIC # Standard Classification Models - Topics & Authors ✏️
+# MAGIC # Baseline Resampled 🍡
 # MAGIC
-# MAGIC This notebook uses non-neural network models to evaluate baselines and test preliminary issues, if any
+# MAGIC This notebook tries baseline models, but after making class distributions uniform
 # MAGIC
 # MAGIC #### Notebook Properties
 # MAGIC * Upstream Notebook: `src.engineering.topic_processor`
-# MAGIC * Compute Resources: `61 GB RAM, 1 GPU` (`p3` instance type used)
+# MAGIC * Compute Resources: `61 GB RAM, 1 GPU` 
 # MAGIC * Last Updated: `Dec 4 2023`
 # MAGIC
 # MAGIC #### Data
@@ -183,7 +183,7 @@ sample_df.simple_topic.value_counts()
 # COMMAND ----------
 
 BASE_DIR_NAME: str = "experiment_results"
-NOTEBOOK_DIR_NAME: str = "standard_classification_models_resampled"
+NOTEBOOK_DIR_NAME: str = "baseline_resampled"
 
 # COMMAND ----------
 
@@ -283,242 +283,6 @@ for model_name, model_callable in baseline_model_callables.items():
         y_title_topic_tfidf_test, classifier_predictions
     )
     with open(f"{title_topic_tfidf_dir_name}/{model_name}.txt", "w") as f:
-        f.write(model_str)
-
-    logger.info(f"Complete: {model_name}")
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC ### Article -> Topic Classifiers
-
-# COMMAND ----------
-
-ARTICLE_TOPIC_TF_IDF_MAX_FEAT: int = 10_000
-ARTICLE_TOPIC_TFIDF_EXP_NAME: str = "article_topic_tfidf"
-
-article_topic_tfidf_baseline_results: dict = {}
-article_topic_tfidf_vectorizer = TfidfVectorizer(
-    max_features=ARTICLE_TOPIC_TF_IDF_MAX_FEAT,
-)
-
-article_topic_tfidf_dir_name: str = (
-    f"./{BASE_DIR_NAME}"
-    + f"/{NOTEBOOK_DIR_NAME}"
-    + f"/{ARTICLE_TOPIC_TFIDF_EXP_NAME}"
-    + f"_{ARTICLE_TOPIC_TF_IDF_MAX_FEAT}"
-)
-os.makedirs(article_topic_tfidf_dir_name, exist_ok=True)
-
-# COMMAND ----------
-
-sample_df = sample_df.dropna(subset=['article_clean']).dropna(subset=['simple_topic'])
-print(sample_df.shape)
-
-# COMMAND ----------
-
-(
-    X_article_topic_tfidf_train,
-    X_article_topic_tfidf_test,
-    y_article_topic_tfidf_train,
-    y_article_topic_tfidf_test,
-) = get_train_and_test_data(
-    article_topic_tfidf_vectorizer,
-    sample_df,
-    "article_clean",
-    "simple_topic",
-)
-
-for model_name, model_callable in baseline_model_callables.items():
-    logger.info(f"Training: {model_name}")
-    classifier_instance = model_callable()
-    classifier_predictions = train_generic_model(
-        model_classifier=classifier_instance,
-        X_train=X_article_topic_tfidf_train,
-        y_train=y_article_topic_tfidf_train,
-        X_test=X_article_topic_tfidf_test,
-    )
-    article_topic_tfidf_baseline_results[model_name] = classifier_predictions
-
-    model_str: str = classification_report(
-        y_article_topic_tfidf_test, classifier_predictions
-    )
-    with open(f"{article_topic_tfidf_dir_name}/{model_name}.txt", "w") as f:
-        f.write(model_str)
-
-    logger.info(f"Complete: {model_name}")
-
-# COMMAND ----------
-
-
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC ### [Extra] Title -> Author Classifiers
-# MAGIC
-# MAGIC > We don't worry about `author -> topic` classifier since the topics that certain authors write about should automatically be encoded within the articles to authors classification
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC #### Author Labels Preparation
-
-# COMMAND ----------
-
-author_article_threshold: int = 100
-
-unique_authors = df_y["author"].dropna().value_counts()
-unique_authors = unique_authors[
-    (unique_authors > author_article_threshold)
-    & ~(
-        (unique_authors.index.str.contains("staff", case=False))
-        | (unique_authors.index.str.contains("media", case=False))
-        | (unique_authors.index.str.contains("network", case=False))
-        | (unique_authors.index.str.contains("press", case=False))
-    )
-]
-
-unique_authors = unique_authors.to_frame().reset_index()
-unique_authors.columns = ["author", "article_count"]
-
-unique_authors = (
-    unique_authors[
-        unique_authors.author.apply(
-            lambda cell: not any(
-                [p.lower() in cell.lower() for p in df_y.publication.unique()]
-            )
-        )
-    ]
-    .reset_index(drop=True)
-    .drop_duplicates(subset=["author"])
-)
-
-print(unique_authors.shape)
-unique_authors.head()
-
-# COMMAND ----------
-
-author_article_df: pd.DataFrame = (
-    df_y[
-        (df_y.author.isin(unique_authors.author))
-        & (df_y.simple_topic != "Commercial Business")
-    ]
-    .dropna(subset=["author"])
-    .dropna(subset=["article_clean"])
-    .dropna(subset=["title_clean"])
-)
-
-print(author_article_df.shape)
-author_article_df.head()
-
-# COMMAND ----------
-
-TITLE_AUTHOR_TF_IDF_MAX_FEAT: int = 10_000
-TITLE_AUTHOR_TFIDF_EXP_NAME: str = "title_author_tfidf"
-
-title_author_tfidf_baseline_results: dict = {}
-title_author_tfidf_vectorizer = TfidfVectorizer(
-    max_features=TITLE_AUTHOR_TF_IDF_MAX_FEAT,
-)
-
-title_author_tfidf_dir_name: str = (
-    f"./{BASE_DIR_NAME}"
-    + f"/{NOTEBOOK_DIR_NAME}"
-    + f"/{TITLE_AUTHOR_TFIDF_EXP_NAME}"
-    + f"_{TITLE_AUTHOR_TF_IDF_MAX_FEAT}"
-)
-os.makedirs(title_author_tfidf_dir_name, exist_ok=True)
-
-# COMMAND ----------
-
-(
-    X_title_author_tfidf_train,
-    X_title_author_tfidf_test,
-    y_title_author_tfidf_train,
-    y_title_author_tfidf_test,
-) = get_train_and_test_data(
-    title_author_tfidf_vectorizer,
-    author_article_df,
-    "title_clean",
-    "author",
-)
-
-for model_name, model_callable in baseline_model_callables.items():
-    logger.info(f"Training: {model_name}")
-    classifier_instance = model_callable()
-    classifier_predictions = train_generic_model(
-        model_classifier=classifier_instance,
-        X_train=X_title_author_tfidf_train,
-        y_train=y_title_author_tfidf_train,
-        X_test=X_title_author_tfidf_test,
-    )
-    title_author_tfidf_baseline_results[model_name] = classifier_predictions
-
-    model_str: str = classification_report(
-        y_title_author_tfidf_test, classifier_predictions
-    )
-    with open(f"{title_author_tfidf_dir_name}/{model_name}.txt", "w") as f:
-        f.write(model_str)
-
-    logger.info(f"Complete: {model_name}")
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC ### [Extra] Article -> Author Classifiers
-
-# COMMAND ----------
-
-ARTICLE_AUTHOR_TF_IDF_MAX_FEAT: int = 5_000
-ARTICLE_AUTHOR_TFIDF_EXP_NAME: str = "article_author_tfidf"
-
-article_author_tfidf_baseline_results: dict = {}
-article_author_tfidf_vectorizer = TfidfVectorizer(
-    max_features=ARTICLE_AUTHOR_TF_IDF_MAX_FEAT,
-)
-
-article_author_tfidf_dir_name: str = (
-    f"./{BASE_DIR_NAME}"
-    + f"/{NOTEBOOK_DIR_NAME}"
-    + f"/{ARTICLE_AUTHOR_TFIDF_EXP_NAME}"
-    + f"_{ARTICLE_AUTHOR_TF_IDF_MAX_FEAT}"
-)
-os.makedirs(article_author_tfidf_dir_name, exist_ok=True)
-
-# COMMAND ----------
-
-(
-    X_article_author_tfidf_train,
-    X_article_author_tfidf_test,
-    y_article_author_tfidf_train,
-    y_article_author_tfidf_test,
-) = get_train_and_test_data(
-    article_author_tfidf_vectorizer,
-    author_article_df,
-    "article_clean",
-    "author",
-)
-
-for model_name, model_callable in baseline_model_callables.items():
-    logger.info(f"Training: {model_name}")
-    classifier_instance = model_callable()
-    classifier_predictions = train_generic_model(
-        model_classifier=classifier_instance,
-        X_train=X_article_author_tfidf_train,
-        y_train=y_article_author_tfidf_train,
-        X_test=X_article_author_tfidf_test,
-    )
-    article_author_tfidf_baseline_results[model_name] = classifier_predictions
-
-    model_str: str = classification_report(
-        y_article_author_tfidf_test, classifier_predictions
-    )
-    with open(f"{article_author_tfidf_dir_name}/{model_name}.txt", "w") as f:
         f.write(model_str)
 
     logger.info(f"Complete: {model_name}")
