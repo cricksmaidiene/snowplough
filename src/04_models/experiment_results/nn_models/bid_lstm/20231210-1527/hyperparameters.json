@@ -1,0 +1,11 @@
+{
+    "max_len": 64,
+    "num_words": 10000,
+    "embedding_output_dim": 64,
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "epochs": 5,
+    "lstm_1_units": 128,
+    "lstm_2_units": 128,
+    "dense_units": 32
+}

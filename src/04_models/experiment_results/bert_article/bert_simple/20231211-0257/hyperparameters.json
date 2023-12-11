@@ -1,0 +1,7 @@
+{
+    "max_len": 64,
+    "bert_model_name": "bert-base-uncased",
+    "learning_rate": 1e-05,
+    "batch_size": 32,
+    "epochs": 3
+}

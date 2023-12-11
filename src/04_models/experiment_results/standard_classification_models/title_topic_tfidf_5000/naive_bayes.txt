@@ -1,23 +1,25 @@
                        precision    recall  f1-score   support
 
-        Art & Culture       0.76      0.37      0.50      2338
-            Education       0.94      0.27      0.41       192
-Entertainment & Media       0.61      0.83      0.70      6887
-          Environment       0.62      0.46      0.53      1339
-              Finance       0.74      0.85      0.79      8858
-               Health       0.72      0.56      0.63      1949
-  Industrial Business       0.73      0.07      0.13       526
- Journalism & Opinion       0.86      0.70      0.77      1957
-       Legal & Safety       0.77      0.44      0.56       772
-               Living       0.67      0.33      0.44      1827
-             Military       0.00      0.00      0.00        57
-             Politics       0.66      0.81      0.73      5348
-              Science       0.65      0.27      0.38       594
-               Sports       0.87      0.82      0.84      3504
-           Technology       0.66      0.70      0.68      4081
-       Transportation       0.51      0.16      0.25       261
-              Weather       0.00      0.00      0.00       140
+        Art & Culture       0.71      0.32      0.45     11023
+  Commercial Business       0.49      0.54      0.52     26266
+            Education       0.93      0.29      0.44       840
+Entertainment & Media       0.56      0.81      0.66     32150
+          Environment       0.51      0.28      0.36      4388
+              Finance       0.64      0.76      0.69     33731
+               Health       0.68      0.44      0.54     14515
+         Humanitarian       0.00      0.00      0.00         8
+  Industrial Business       0.53      0.08      0.13      1436
+ Journalism & Opinion       0.87      0.73      0.79      8805
+       Legal & Safety       0.67      0.53      0.59      3215
+               Living       0.68      0.24      0.36      7554
+             Military       0.00      0.00      0.00       348
+             Politics       0.64      0.78      0.70     21267
+              Science       0.59      0.32      0.42      2869
+               Sports       0.81      0.70      0.76     12991
+           Technology       0.61      0.56      0.59     20067
+       Transportation       0.42      0.19      0.26      1137
+              Weather       0.58      0.03      0.06       542
 
-             accuracy                           0.70     40630
-            macro avg       0.63      0.45      0.49     40630
-         weighted avg       0.71      0.70      0.68     40630
+             accuracy                           0.62    203152
+            macro avg       0.57      0.40      0.44    203152
+         weighted avg       0.63      0.62      0.60    203152

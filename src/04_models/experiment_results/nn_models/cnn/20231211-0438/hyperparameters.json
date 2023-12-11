@@ -1,0 +1,13 @@
+{
+    "max_len": 20,
+    "num_words": 10000,
+    "embedding_output_dim": 64,
+    "filter_sizes": [
+        64,
+        128
+    ],
+    "kernel_size": 5,
+    "learning_rate": 0.0001,
+    "batch_size": 64,
+    "epochs": 5
+}
