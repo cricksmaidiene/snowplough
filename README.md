@@ -1,5 +1,7 @@
 # Snowplough 🏂
 
+> Find More Info on the Project Page: [Snowplough Project](https://cricksmaidiene.github.io/snowplough)
+
 A machine learning model that performs topic classification of news articles for media bias analysis. Final project for UC Berkeley MIDS 266 (Natural Language Processing)
 
 Environments:
