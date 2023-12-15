@@ -25,6 +25,10 @@ This classifier is augmented with sentiment analysis and other indicators for a 
 We’ve made the code, notebooks, models and newly generated (topic classified) dataset publicly available. The newly created dataset is listed as All The News v2.1 on Kaggle and a fine-tuned BERT classifier for the same is also made available online.
 
 * **Project Report**: [Download PDF](https://github.com/cricksmaidiene/snowplough/blob/main/snowplough_project_report.pdf)
+* **Presentation**: [Download PDF](https://github.com/cricksmaidiene/snowplough/blob/main/presentation.pdf)
+
+---
+
 * **GitHub**: [cricksmaidiene/snowplough](https://github.com/cricksmaidiene/snowplough)
 * **Kaggle**: [Coming Soon]()
 * **Hugging Face**: [Coming Soon]()
